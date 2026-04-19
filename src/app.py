@@ -10,23 +10,24 @@ transacoes = pd.read_csv('./data/transacoes.csv')
 if "historico" not in st.session_state:
     st.session_state.historico = []
 
-# ============ 3. FUNÇÃO DE DEMONSTRAÇÃO ============
+# ============ 3. FUNÇÃO DE DEMONSTRAÇÃO MELHORADA ============
 def resposta_demo(pergunta):
-    """Respostas automáticas para o modo de demonstração na DIO."""
-    pergunta = pergunta.lower()
-    if "gastos" in pergunta or "gastei" in pergunta:
-        return f"Laura, analisei seus dados! Seus maiores gastos este mês foram com Moradia (R$ 1.200) e Alimentação (R$ 450). Juntos, eles representam a maior parte das suas despesas."
-    elif "meta" in pergunta or "reserva" in pergunta:
-        return f"Laura, faltam R$ 5.000 para atingir sua meta de R$ 15.000. Se você poupar R$ 500 por mês, chegará lá em 10 meses!"
-    elif "investir" in pergunta or "produto" in pergunta:
-        return "Para sua reserva de emergência, as melhores opções no nosso catálogo são o Tesouro Selic ou o CDB de Liquidez Diária, pois oferecem segurança e resgate rápido."
+    p = pergunta.lower()
+    if "gastos" in p or "gastei" in p or "dinheiro" in p:
+        return f"Laura, analisando seus dados, notei que sua maior despesa é Moradia (R$ 1.200). Você tem um saldo positivo este mês, o que é ótimo para sua reserva!"
+    elif "meta" in p or "reserva" in p or "quanto falta" in p:
+        return f"Faltam exatamente R$ 5.000 para sua meta de R$ 15.000. Se mantiver o ritmo de R$ 500/mês, em 10 meses você atinge o objetivo!"
+    elif "investir" in p or "produto" in p or "onde guardar" in p:
+        return "Para sua segurança, recomendo o Tesouro Selic ou CDB Liquidez Diária. Eles são ideais para sua Reserva de Emergência."
+    elif "oi" in p or "olá" in p or "quem é você" in p:
+        return f"Olá, Laura! Sou a Lis, sua educadora financeira. Posso te ajudar a analisar seus gastos, simular sua meta ou explicar investimentos. O que vamos ver hoje?"
     else:
-        return "Olá! Sou a Lis. Como estou em modo de demonstração, posso te ajudar a analisar seus gastos, falar sobre sua meta de reserva ou explicar produtos financeiros. O que deseja saber?"
+        # Resposta para perguntas fora de contexto
+        return "Laura, como sua educadora financeira, meu foco é te ajudar com seu dinheiro e metas. Que tal falarmos sobre seus gastos ou sua reserva de emergência?"
 
 # ============ 4. INTERFACE (VISUAL) ============
-st.set_page_config(page_title="Lis - Modo Demo", layout="centered")
+st.set_page_config(page_title="Lis - Educadora Financeira", layout="centered")
 st.title("👩‍🏫 Lis, sua Educadora Financeira")
-st.info("🚀 MODO DE DEMONSTRAÇÃO ATIVO: A Lis está respondendo com base na lógica local do projeto.")
 st.markdown(f"Olá, **{perfil['nome']}**! Como posso te ajudar hoje?")
 st.markdown("---")
 
@@ -38,8 +39,7 @@ if pergunta := st.chat_input("Sua dúvida sobre finanças..."):
     with st.chat_message("user"):
         st.markdown(pergunta)
     
-    with st.spinner("Lis processando dados..."):
-        resposta = resposta_demo(pergunta)
+    with st.spinner("Lis processando..."):
         resposta = resposta_demo(pergunta)
         st.session_state.historico.append({"role": "user", "content": pergunta})
         st.session_state.historico.append({"role": "assistant", "content": resposta})
@@ -49,3 +49,4 @@ if pergunta := st.chat_input("Sua dúvida sobre finanças..."):
 if st.sidebar.button("Limpar Conversa"):
     st.session_state.historico = []
     st.rerun()
+git add .
