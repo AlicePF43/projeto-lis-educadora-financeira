@@ -49,4 +49,3 @@ if pergunta := st.chat_input("Sua dúvida sobre finanças..."):
 if st.sidebar.button("Limpar Conversa"):
     st.session_state.historico = []
     st.rerun()
-git add .
