@@ -60,4 +60,4 @@ streamlit run src/app.py
 ```
 
 ## 👩‍💻 Autoria
-Projeto adaptado e desenvolvido por **Laura Souza**, como parte da trilha de IA Generativa da [DIO](https://www.dio.me/).
+Projeto adaptado e desenvolvido por **Alice Fraga**, como parte da trilha de IA Generativa da [DIO](https://www.dio.me/).
